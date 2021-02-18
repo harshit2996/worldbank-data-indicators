@@ -118,8 +118,10 @@
               v-if="dialog"
               :dialog.sync="dialog"
               :rowData.sync="editData"
-              :indicator.sync="currentItem.route"
+              :indicator.sync="currentItem.route" 
+              :message.sync="errMsg"
             ></EditItem>
+            <ErrorComponent :trigger.sync="snackbar" :message.sync="errMsg"></ErrorComponent>
           </v-container>
         </v-col>
       </v-container>
@@ -130,7 +132,7 @@
 <script>
 import Indicators from "./components/indicators";
 import EditItem from "./components/edit";
-
+import ErrorComponent from './components/errormessage'
 import axios from "axios";
 
 export default {
@@ -139,6 +141,7 @@ export default {
   components: {
     Indicators,
     EditItem,
+    ErrorComponent
   },
 
   data: () => ({
@@ -154,6 +157,8 @@ export default {
     title: "",
     dialog: false,
     currentItem: [],
+    errMsg:"",
+    snackbar:false
   }),
 
   mounted() {
@@ -164,6 +169,11 @@ export default {
     currentItem(v) {
       this.onRowSelect(v);
     },
+
+    errMsg(){
+      this.snackbar=true
+    }
+
   },
 
   methods: {
@@ -212,7 +222,8 @@ export default {
           this.title = item.Indicators;
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log(err.response.data)
+          this.errMsg = err.response.data.message
         });
     },
 
@@ -264,7 +275,9 @@ export default {
           this.title = headerFields[0];
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log(err.response.data)
+          this.errMsg = err.response.data.message
+          this.snackbar = true
         });
     },
   },

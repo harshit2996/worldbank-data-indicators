@@ -39,7 +39,7 @@
   export default {
     name: 'EditItem',
 
-    props:['dialog', 'rowData', 'indicator'],
+    props:['dialog', 'rowData', 'indicator', 'trigger', 'message'],
 
     computed:{
       open:{
@@ -75,6 +75,7 @@
           this.open = !this.open
         })
         .catch(err=>{
+          this.$emit('update:message', err.response.data)
           console.log(err.response.data)
           this.open = !this.open
         })
