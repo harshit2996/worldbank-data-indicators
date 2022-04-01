@@ -1,4 +1,4 @@
-# Application for Application to View and Patch Data for key indicators such as Population, GDP, etc.  published by WorldBank
+# Application to View and Patch Data for key indicators such as Population, GDP, etc.  published by WorldBank
 
 ## Demo Snapshots for the Application 
 ![alt text](https://github.com/harshit2996/worldbank-data-indicators/blob/master/demo1.png)
